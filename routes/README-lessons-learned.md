@@ -9,3 +9,7 @@ Express Router:
         app.use('/api', api)  // where anything starting /api is sent to the api file
         
         Then in the api file it starts with a root route of / which actually means /api/anything
+
+
+
+Attempted to get 'import * as controller from './search-controller' but it complained about import being a reserved keyword.
