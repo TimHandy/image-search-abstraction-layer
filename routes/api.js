@@ -48,17 +48,10 @@ const searchModel = require('../search.model')
 
 function addSearchToDatabase(searchTerm) {
     
-    function createModelInstance(searchTerm) {
-        let newItem = new searchModel({
+    const newModelInstance = new searchModel({
             term: searchTerm,
             when: new Date().toISOString()
         })
-        
-        return newItem
-    }
-    
-    // create an instance
-    const newModelInstance = createModelInstance(searchTerm)
     
     // save instance to the database
     newModelInstance.save(function(err, data) {
