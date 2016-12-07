@@ -121,21 +121,23 @@ router.get('/imagesearch/:searchTerm', function(req, res, next) {
 });
 
 
-
-
-
 /* GET latest searches. */
 router.get('/latest/imagesearch/', function(req, res, next) {
     console.log('latest searches route');
-    //retrieve the latest 10 search entries from mongo
-    //format as below
-    //send back to the screen
-    res.send('latest searches here')
-    //res.render('index', { title: 'Express' });
+    
+    searchModel.find({}).sort('-when').limit(10).exec(function(err, data) {
+        const formattedResults = []
+        console.log('data: ', data);
+        data.forEach(function(searchItem) {
+            let item = {
+                "term": searchItem.term,
+                "when": searchItem.when
+            }
+            formattedResults.push(item)
+        })
+        res.send( formattedResults )
+    })
 });
-
-module.exports = router;
-
 
 /*
 response should be in following format, returning just latest 10 entries
@@ -146,3 +148,5 @@ response should be in following format, returning just latest 10 entries
     }
 ]
 */
+
+module.exports = router;
