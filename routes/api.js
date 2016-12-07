@@ -1,4 +1,5 @@
 'use strict'
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const controller = './search.controller';
@@ -31,7 +32,7 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 // const mongoConnectStr = 'mongodb://process.env.mongoUser:process.env.mongoPassword@ds147777.mlab.com:47777/urlshortenerdb'
-const mongoConnectStr = 'mongodb://searchuser:searchuser1@ds127928.mlab.com:27928/image-search-abstraction-layer'
+const mongoConnectStr = 'mongodb://' + process.env.mongoUser + ':' + process.env.mongoPassword + '@ds127928.mlab.com:27928/image-search-abstraction-layer'
 //mongoose.connect('mongodb://' + process.env.mongoUser + ':' + process.env.mongoPassword + '@ds147777.mlab.com:47777/urlshortenerdb', options) 
 mongoose.connect(mongoConnectStr, options, function(err) {
     if (err) {
@@ -84,7 +85,7 @@ function createJsonString(apiResponse) {
     return formatted
 }
 /*
-response should be in following format, 10 at a time
+response should be in following format, 10 entries at a time:
 [
     {
         "url": "http://domain.xyz/pic.jpg",
@@ -97,14 +98,22 @@ response should be in following format, 10 at a time
 
 
 
-/* GET image search. */
+/* // GET /api/imagesearch/:searchTerm?offset=x */
 router.get('/imagesearch/:searchTerm', function(req, res, next) {
     const searchTerm = req.params.searchTerm
-    const apiString = 'https://pixabay.com/api/?key=' + apiKey + '&q=' + searchTerm + '&image_type=photo&per_page=10&page=1&pretty=true'
-    //console.log(apiString);
+    let offset = ''
+    if ( isNaN(req.query.offset) ) {
+        offset = 1
+    } else {
+        offset = req.query.offset
+    }
+    const apiString = 'https://pixabay.com/api/?key=' + apiKey + '&q=' + searchTerm + '&image_type=photo&per_page=10&page=' + offset + '&pretty=true'
+    console.log(apiString);
+    //console.log('offset: ', req.query.offset);
     
-    request(apiString, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+    
+    request(apiString, function(err, response, body) {
+        if (!err && response.statusCode == 200) {
             //console.log(body) 
             
             const apiResponse = createJsonString(body)
@@ -113,11 +122,10 @@ router.get('/imagesearch/:searchTerm', function(req, res, next) {
             // return the response to the screen
             res.send(apiResponse)
             addSearchToDatabase(searchTerm)
+        } else {
+            res.send("Oh Noes! Error! Error! Bad things.") // TODO handle this error, for eg if offset is greater than there are pages: "[ERROR 400] "page" is out of valid range." is returned from pixabay.
         }
     })
-
-    //res.render('index', { title: 'Express' });
-    //take a look at how to do the offset. leave til last?
 });
 
 
@@ -140,7 +148,7 @@ router.get('/latest/imagesearch/', function(req, res, next) {
 });
 
 /*
-response should be in following format, returning just latest 10 entries
+response should be in following format, returning just latest 10 search entries:
 [
     {
         "term": "lolcats funny",

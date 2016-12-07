@@ -1,8 +1,18 @@
-search response should be 10 at a time... paginated?
+# TODOs 
+
 
 hide the api key
 
 change to the process.env for mongo connection string... comment out the current one and remove the password/username
+
+deploy to heroku, inc env vars.
+
+// TODO handle this error, for eg if offset is greater than there are pages: "[ERROR 400] "page" is out of valid range." is returned from pixabay.
+
+
+Try doing it like this... to tidy up the routes and make it even more modular.
+router.get( '/api/imagesearch/:SEARCH', controller.insertQuery );
+insertQuery is a function in controller.js
 
 
 
