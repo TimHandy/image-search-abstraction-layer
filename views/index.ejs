@@ -6,6 +6,33 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+
+<p>A Free Code Camp assignment.</p>
+
+<h2>Objective</h2>
+
+<p>Build a full stack JavaScript app that allows you to search for images <a href="https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10">like this</a> and browse recent search queries <a href="https://cryptic-ridge-9197.herokuapp.com/api/latest/imagesearch/">like this</a>. Then deploy it to Heroku.</p>
+
+<p>**User Story**: I can get the image URLs, alt text and page urls for a set of images relating to a given search string.</p>
+
+<p>**User Story**: I can paginate through the responses by adding a ?offset=2 parameter to the URL.</p>
+
+<p>**User Story**: I can get a list of the most recently submitted search strings.</p>
+
+<h2>Usage</h2>
+
+
+    <p><strong>/api/imagesearch/lolcats%20funny?offset=3</strong></p>
+    
+<p>Returns a JSON object including several fields. ?offset=x can be omitted; it will return page 1 of the results.</p>
+
+    <p><strong>?offset=x </strong></p>
+
+<p>Paginates the results, i.e. ?offset=3 returns the third set of 10 results. Pixabay does not use 0-based counting for this feature, i.e. 0 is an invalid offset.</p>
+
+    <p><strong>/api/latest/imagesearch/</strong></p>
+
+<p>Returns a JSON object listing the 10 most recently submitted searches.</p>
+
   </body>
 </html>
