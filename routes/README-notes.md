@@ -1,3 +1,12 @@
+search response should be 10 at a time... paginated?
+
+hide the api key
+
+change to the process.env for mongo connection string... comment out the current one and remove the password/username
+
+
+
+
 
 The correct API appears to be this:
 

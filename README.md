@@ -11,3 +11,9 @@ Build a full stack JavaScript app that allows you to search for images [like thi
 **User Story**: I can paginate through the responses by adding a ?offset=2 parameter to the URL.
 
 **User Story**: I can get a list of the most recently submitted search strings.
+
+## Usage
+
+for debugging in dev:
+
+$ DEBUG=express:* npm start
