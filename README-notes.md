@@ -1,7 +1,8 @@
 # TODOs 
 
+Download to my machine
 
-change to the process.env for mongo connection string... comment out the current one and remove the password/username
+create a repo and push
 
 deploy to heroku, inc env vars.
 
