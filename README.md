@@ -15,7 +15,7 @@ Build a full stack JavaScript app that allows you to search for images [like thi
 ## Usage
 
 
-    /api/imagesearch/lolcats%20funny?offset=3
+    /api/imagesearch/cats?offset=3
     
 Returns a JSON object including several fields. ?offset=x can be omitted; it will return page 1 of the results.
 
@@ -63,6 +63,10 @@ Attempted to get 'import * as controller from './search-controller' but it compl
 Used ejs templating to render the / index route.
 
 For css, with node, this goes in the designated 'public' dir (see app.js) with a link tag in the ejs template linking to it.
+
+Access /params via req.params
+
+Access /
 
 ## Notes for next time
 
